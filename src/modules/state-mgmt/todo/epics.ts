@@ -22,7 +22,7 @@ export const createStart: Epic<IAction, IAction, IRootState, IEpicDependencies> 
     ofType(ActionType.CREATE_TODO_START),
     mergeMap(({ payload }) =>
       deps.apiService.createTodo(payload.todo).pipe(
-        tap(() => deps.navigationService.navigation.navigate('TodoList')),
+        tap(() => deps.navigationService.navigation.navigate({ routeName: 'TodoList', key: Math.random().toString() })),
         map(() => actions.createSuccess()),
         catchError(error => of(coreState.actions.epicError(error)))
       )

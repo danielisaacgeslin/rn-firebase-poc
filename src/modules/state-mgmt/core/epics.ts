@@ -58,7 +58,7 @@ export const coreGetEpicBootstrap: Epic<IAction, IAction, IRootState, IEpicDepen
     tap(({ payload }) => deps.apiService.setToken(payload.accessToken)),
     /** merge maps emits get current user & first todo list fetch data and isolates an observable branch in case it fails  */
     mergeMap(() =>
-      of(userActions.setListStart([state$.value.auth.currentUserId]), todoActions.setListStart({ page: 1, limit: ENV.PAGINATION.LIMIT })).pipe(
+      of(userActions.setListStart([state$.value.auth.currentUserId])).pipe(
         /** side effect to navigate to initial authenticated view and reset the router so the user can't go back to the login */
         tap(() => {
           const resetAction = StackActions.reset({ index: 0, actions: [NavigationActions.navigate({ routeName: 'TodoForm' })] });

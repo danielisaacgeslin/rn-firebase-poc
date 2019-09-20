@@ -13,13 +13,13 @@ export class ApiService {
   private retryTimeout: number = ENV.API.RETRY_TIMEOUT; /** @todo */
   private token: string = null;
   private fbApp = Firebase.initializeApp({
-    apiKey: 'AIzaSyB_9p0yAlNPu5gii6NvWjeJ2C92eH79k_s',
-    authDomain: 'todo-c5a2e.firebaseapp.com',
-    databaseURL: 'https://todo-c5a2e.firebaseio.com',
-    projectId: 'todo-c5a2e',
-    storageBucket: 'todo-c5a2e.appspot.com',
-    messagingSenderId: '664508386771',
-    appId: '1:664508386771:web:fdbea7683e1cc448f73326'
+    apiKey: ENV.FIREBASE.API_KEY,
+    authDomain: ENV.FIREBASE.AUTH_DOMAIN,
+    databaseURL: ENV.FIREBASE.DATABASE_URL,
+    projectId: ENV.FIREBASE.PROJECT_ID,
+    storageBucket: ENV.FIREBASE.STORAGE_BUCKET,
+    messagingSenderId: ENV.FIREBASE.MESSAGING_SENDER_ID,
+    appId: ENV.FIREBASE.APP_ID
   });
 
   public setToken(token: string): void {
@@ -88,9 +88,9 @@ export class ApiService {
           ...todo,
           _id: Date.now().toString(),
           createdById: 'placeholder',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        } as TodoModel.ITodo)
+          createdAt: new Date().toLocaleString(),
+          updatedAt: new Date().toLocaleString()
+        })
     ).pipe(map(() => null));
   }
 
@@ -100,17 +100,17 @@ export class ApiService {
     this.fbApp
       .database()
       .ref('/todos')
-      .on('value', snapshot => {
+      .once('value', snapshot => {
         subject.next({
           count: query.limit,
           page: query.page,
           limit: query.limit,
           totalPages: 300,
-          docs: Object.values(snapshot.val())
+          docs: Object.values<TodoModel.ITodo>(snapshot.val()).reverse()
         });
         subject.complete();
       });
-    return subject;
+    return subject.asObservable();
   }
 
   private request<T = any>(

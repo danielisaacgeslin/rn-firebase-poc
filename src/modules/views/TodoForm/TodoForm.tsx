@@ -1,6 +1,7 @@
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState, memo, useCallback, useMemo } from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements';
+import { NavigationScreenProp } from 'react-navigation';
 
 import { ENV, STYLE } from '../../../constants';
 import styles from './styles';
@@ -8,6 +9,7 @@ import { TodoModel } from '../../models';
 
 export interface ITodoFormProps {
   isAndroid?: boolean;
+  navigation: NavigationScreenProp<any, any>;
   createTodo: (todo: TodoModel.ITodo) => void;
 }
 
@@ -16,9 +18,10 @@ export interface ITodoFormState {
   description: string;
 }
 
-const TodoForm = ({ createTodo, isAndroid = ENV.PLATFORM.IS_ANDROID }: ITodoFormProps) => {
+const TodoForm = ({ createTodo, isAndroid = ENV.PLATFORM.IS_ANDROID, navigation }: ITodoFormProps) => {
   const [state, setState] = useState<ITodoFormState>({ title: '', description: '' });
 
+  const isDisabled = useMemo(() => !state.title, [state.title]);
   const onChangetitle = useCallback((title: string) => setState({ ...state, title }), [state, setState]);
   const onChangedescription = useCallback((description: string) => setState({ ...state, description }), [state, setState]);
   const onCreate = useCallback(() => createTodo({ title: state.title, description: state.description, status: TodoModel.Status.PENDING }), [createTodo, state]);
@@ -51,7 +54,7 @@ const TodoForm = ({ createTodo, isAndroid = ENV.PLATFORM.IS_ANDROID }: ITodoForm
             testID="description-input"
           />
         </View>
-        <Button onPress={onCreate} title="Create Todo" testID="create-button" />
+        <Button disabled={isDisabled} onPress={onCreate} title="Create Todo" testID="create-button" />
       </KeyboardAvoidingView>
     </View>
   );

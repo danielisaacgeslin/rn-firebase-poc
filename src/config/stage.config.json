@@ -3,5 +3,12 @@
   "API_URL": "https://stages-server/service",
   "API_RETRY_TIMEOUT": 1000,
   "CHECK_FOR_UPDATES_INTERVAL": 600000,
-  "STORAGE_TIMEOUT": 6000
+  "STORAGE_TIMEOUT": 6000,
+  "API_KEY": "AIzaSyB_9p0yAlNPu5gii6NvWjeJ2C92eH79k_s",
+  "AUTH_DOMAIN": "todo-c5a2e.firebaseapp.com",
+  "DATABASE_URL": "https://todo-c5a2e.firebaseio.com",
+  "PROJECT_ID": "todo-c5a2e",
+  "STORAGE_BUCKET": "todo-c5a2e.appspot.com",
+  "MESSAGING_SENDER_ID": "664508386771",
+  "APP_ID": "1:664508386771:web:fdbea7683e1cc448f73326"
 }

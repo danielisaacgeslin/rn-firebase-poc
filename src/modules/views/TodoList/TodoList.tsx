@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback } from 'react';
+import React, { memo, useMemo, useCallback, useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
 
 import { ENV } from '../../../constants';
@@ -14,25 +14,24 @@ export interface ITodoListProps {
 }
 
 const TodoList = ({ currentUser, todoMap, fetchTodoList }: ITodoListProps) => {
-  const todoList = useMemo(() => Object.values(todoMap).sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1)), [todoMap]);
+  const todoList = useMemo(() => Object.values(todoMap).sort((a, b) => (a._id > b._id ? -1 : 1)), [todoMap]);
 
   const keyExtractor = useCallback((item: TodoModel.ITodo): string => item._id, []);
   const renderTodo = useCallback(({ item }: { item: TodoModel.ITodo }) => <Todo todo={item} />, []);
-  const onEndReached = useCallback(() => {
-    fetchTodoList({ page: 1, limit: ENV.PAGINATION.LIMIT, q: { createdAt$ls: todoList[todoList.length - 1].createdAt } });
-  }, [todoList, fetchTodoList]);
+
+  useEffect(() => {
+    fetchTodoList({ page: 1, limit: ENV.PAGINATION.LIMIT, q: {} });
+  }, []);
 
   return (
     <View style={styles.todoContainer}>
       <View style={styles.todoBody}>
-        <Text>this is an infinite scroll, please scroll down :)</Text>
         <FlatList
           testID="todo-list"
           data={todoList}
+          extraData={todoList}
           renderItem={renderTodo}
           keyExtractor={keyExtractor}
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.5}
         />
       </View>
     </View>
