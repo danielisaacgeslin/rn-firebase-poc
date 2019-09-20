@@ -26,13 +26,7 @@ const TodoList = ({ currentUser, todoMap, fetchTodoList }: ITodoListProps) => {
   return (
     <View style={styles.todoContainer}>
       <View style={styles.todoBody}>
-        <FlatList
-          testID="todo-list"
-          data={todoList}
-          extraData={todoList}
-          renderItem={renderTodo}
-          keyExtractor={keyExtractor}
-        />
+        <FlatList testID="todo-list" data={todoList} extraData={todoList} renderItem={renderTodo} keyExtractor={keyExtractor} />
       </View>
     </View>
   );
