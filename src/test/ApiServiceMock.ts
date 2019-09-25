@@ -7,4 +7,5 @@ export class ApiServiceMock {
   public setToken = jest.fn();
   public getUserList = jest.fn().mockReturnValue(of(getPaginationOf(getUser_1())));
   public getTodoList = jest.fn().mockReturnValue(of(getPaginationOf(getTodo_1())));
+  public createTodo = jest.fn().mockReturnValue(of(null));
 }

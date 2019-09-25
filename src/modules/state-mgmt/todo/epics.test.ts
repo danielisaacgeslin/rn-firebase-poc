@@ -2,7 +2,7 @@ import { ActionsObservable } from 'redux-observable';
 import { throwError } from 'rxjs';
 
 import { IEpicDependencies } from '../rootState';
-import { todoGetEpicGetTodoList } from './epics';
+import { todoGetEpicGetTodoList, createStart } from './epics';
 import { getDeps } from '../../../test/epicDependencies';
 import { getTodo_1, getInitialState } from '../../../test/entities';
 import { coreState } from '../core';
@@ -24,11 +24,11 @@ describe('user epics', () => {
       const emitedActions = [];
       todoGetEpicGetTodoList(ActionsObservable.of(actions.setListStart(query)), state$, deps).subscribe(output => {
         emitedActions.push(output);
-        if (output.type === ActionType.SET_LIST_SUCCESS) {
-          expect(deps.apiService.getTodoList).toBeCalledWith(query);
-          expect(emitedActions[0]).toEqual(actions.setListSuccess([getTodo_1()]));
-          done();
-        }
+      });
+      setTimeout(() => {
+        expect(deps.apiService.getTodoList).toBeCalledWith(query);
+        expect(emitedActions[0]).toEqual(actions.setListSuccess([getTodo_1()]));
+        done();
       });
     });
 
@@ -36,6 +36,32 @@ describe('user epics', () => {
       const emitedActions = [];
       deps.apiService.getTodoList = () => throwError(error);
       todoGetEpicGetTodoList(ActionsObservable.of(actions.setListStart({ page: 1, limit: 1 })), state$, deps).subscribe(output => {
+        emitedActions.push(output);
+        expect(emitedActions[0]).toEqual(coreState.actions.epicError(error));
+        done();
+      });
+    });
+  });
+
+  describe('createStart', () => {
+    const query = { page: 1, limit: 1 };
+    it('should get epic for get user list', done => {
+      const emitedActions = [];
+      createStart(ActionsObservable.of(actions.createStart(getTodo_1())), state$, deps).subscribe(output => {
+        emitedActions.push(output);
+      });
+      setTimeout(() => {
+        expect(deps.apiService.createTodo).toBeCalledWith(getTodo_1());
+        expect(deps.navigationService.navigation.navigate).toBeCalled();
+        expect(emitedActions[0]).toEqual(actions.createSuccess());
+        done();
+      });
+    });
+
+    it('should catch errors and dispatch them to the user error handler', done => {
+      const emitedActions = [];
+      deps.apiService.createTodo = () => throwError(error);
+      createStart(ActionsObservable.of(actions.createStart(getTodo_1())), state$, deps).subscribe(output => {
         emitedActions.push(output);
         expect(emitedActions[0]).toEqual(coreState.actions.epicError(error));
         done();

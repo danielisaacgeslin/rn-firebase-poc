@@ -85,13 +85,12 @@ describe('Core epics', () => {
       state$ = { value: getState() };
       coreGetEpicBootstrap(ActionsObservable.of(actions.bootstrap(token)), state$, deps).subscribe(output => {
         emitedActions.push(output);
-        if (output.type === todoState.ActionType.SET_LIST_START) {
-          expect(deps.apiService.setToken).toBeCalledWith(token);
-          expect(deps.navigationService.navigation.dispatch).toBeCalled();
-          expect(emitedActions[0]).toEqual(userState.actions.setListStart([state$.value.auth.currentUserId]));
-          expect(emitedActions[1]).toEqual(todoState.actions.setListStart({ page: 1, limit: ENV.PAGINATION.LIMIT }));
-          done();
-        }
+      });
+      setTimeout(() => {
+        expect(deps.apiService.setToken).toBeCalledWith(token);
+        expect(deps.navigationService.navigation.dispatch).toBeCalled();
+        expect(emitedActions[0]).toEqual(userState.actions.setListStart([state$.value.auth.currentUserId]));
+        done();
       });
     });
 

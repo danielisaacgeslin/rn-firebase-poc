@@ -16,42 +16,40 @@ exports[`TodoList should render 1`] = `
       }
     }
   >
-    <Text>
-      this is an infinite scroll, please scroll down :)
-    </Text>
     <RCTScrollView
       data={
         Array [
           Object {
-            "_id": "9164e4c4-9164e4c4-6521-47bb-6521x-97fd",
-            "createdAt": "2018-05-13",
-            "createdById": "9164e4c4-6521-47bb-97fd-c75ac02b2cf5",
-            "description": "i am a todo description 3",
+            "_id": "3",
+            "description": "3",
             "status": "pending",
-            "title": "i am a todo 3",
-            "updatedAt": "2018-08-27",
+            "title": "3",
           },
           Object {
-            "_id": "6521x-9164e4c4-6521-97fd-9164e4c4-47bb",
-            "createdAt": "2018-05-11",
-            "createdById": "9164e4c4-6521-47bb-97fd-c75ac02b2cf5",
-            "description": "i am a todo description",
+            "_id": "1",
+            "description": "1",
             "status": "pending",
-            "title": "i am a todo",
-            "updatedAt": "2018-08-27",
-          },
-          Object {
-            "_id": "9164e4c4-6521x-6521-97fd-47bb-9164e4c4",
-            "createdAt": "2018-05-10",
-            "createdById": "9164e4c4-6521-47bb-97fd-c75ac02b2cf5",
-            "description": "i am a todo description 3",
-            "status": "pending",
-            "title": "i am a todo 3",
-            "updatedAt": "2018-08-27",
+            "title": "1",
           },
         ]
       }
       disableVirtualization={false}
+      extraData={
+        Array [
+          Object {
+            "_id": "3",
+            "description": "3",
+            "status": "pending",
+            "title": "3",
+          },
+          Object {
+            "_id": "1",
+            "description": "1",
+            "status": "pending",
+            "title": "1",
+          },
+        ]
+      }
       getItem={[Function]}
       getItemCount={[Function]}
       horizontal={false}
@@ -60,8 +58,7 @@ exports[`TodoList should render 1`] = `
       maxToRenderPerBatch={10}
       numColumns={1}
       onContentSizeChange={[Function]}
-      onEndReached={[Function]}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={2}
       onLayout={[Function]}
       onMomentumScrollEnd={[Function]}
       onScroll={[Function]}
@@ -97,7 +94,7 @@ exports[`TodoList should render 1`] = `
                 }
               }
             >
-              I AM A TODO 3
+              3
             </Text>
             <Text
               style={
@@ -106,7 +103,7 @@ exports[`TodoList should render 1`] = `
                 }
               }
             >
-              i am a todo description 3
+              3
             </Text>
             <Text
               style={
@@ -116,7 +113,7 @@ exports[`TodoList should render 1`] = `
               }
             >
               created at: 
-              2018-05-13
+              undefined
             </Text>
           </View>
         </View>
@@ -140,7 +137,7 @@ exports[`TodoList should render 1`] = `
                 }
               }
             >
-              I AM A TODO
+              1
             </Text>
             <Text
               style={
@@ -149,7 +146,7 @@ exports[`TodoList should render 1`] = `
                 }
               }
             >
-              i am a todo description
+              1
             </Text>
             <Text
               style={
@@ -159,50 +156,7 @@ exports[`TodoList should render 1`] = `
               }
             >
               created at: 
-              2018-05-11
-            </Text>
-          </View>
-        </View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Object {
-                "marginBottom": 5,
-                "marginTop": 5,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "color": "#1745D5",
-                  "fontSize": 19,
-                }
-              }
-            >
-              I AM A TODO 3
-            </Text>
-            <Text
-              style={
-                Object {
-                  "fontSize": 15,
-                }
-              }
-            >
-              i am a todo description 3
-            </Text>
-            <Text
-              style={
-                Object {
-                  "fontSize": 13,
-                }
-              }
-            >
-              created at: 
-              2018-05-10
+              undefined
             </Text>
           </View>
         </View>

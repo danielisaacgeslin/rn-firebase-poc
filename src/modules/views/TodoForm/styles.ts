@@ -10,6 +10,10 @@ export default StyleSheet.create({
     marginTop: 16,
     textAlign: 'left'
   },
+  formContainer: {
+    justifyContent: 'space-between',
+    flex: 1
+  },
   heading2: {
     color: STYLE.COLOR.QUATERNARY,
     fontSize: STYLE.FONT.SIZE.HEADING_2,
@@ -54,7 +58,8 @@ export default StyleSheet.create({
     paddingBottom: 20
   },
   keyboardContainer: {
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    flex: 1
   },
   buttonDisabled: {
     backgroundColor: STYLE.COLOR.QUATERNARY

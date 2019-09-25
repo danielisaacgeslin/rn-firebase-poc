@@ -30,7 +30,7 @@ export const ENV = {
     IS_ANDROID: Platform.OS === 'android',
     IS_IOS: Platform.OS === 'ios'
   },
-  KEYBOARD_VERTICAL_OFFSET: StatusBar.currentHeight + Header.HEIGHT,
+  KEYBOARD_VERTICAL_OFFSET: (StatusBar.currentHeight || 0) + (Header.HEIGHT || 0) + 25,
   FIREBASE: {
     API_KEY: config.API_KEY,
     AUTH_DOMAIN: config.AUTH_DOMAIN,

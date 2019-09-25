@@ -13,8 +13,8 @@ export interface ITodoListProps {
   fetchTodoList: (query: GeneralModel.IApiQuery) => void;
 }
 
-const TodoList = ({ currentUser, todoMap, fetchTodoList }: ITodoListProps) => {
-  const todoList = useMemo(() => Object.values(todoMap).sort((a, b) => (a._id > b._id ? -1 : 1)), [todoMap]);
+const TodoList = ({ todoMap, fetchTodoList }: ITodoListProps) => {
+  const todoList = useMemo(() => Object.values(todoMap).sort(/* istanbul ignore next */ (a, b) => (a._id > b._id ? -1 : 1)), [todoMap]);
 
   const keyExtractor = useCallback((item: TodoModel.ITodo): string => item._id, []);
   const renderTodo = useCallback(({ item }: { item: TodoModel.ITodo }) => <Todo todo={item} />, []);
